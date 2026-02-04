@@ -18,10 +18,21 @@ function doLogout()
 
 function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+  document.getElementById("contactAddResult").innerHTML = "";
+  
+  let firstName = document.getElementById("firstName").value;
+  let lastName  = document.getElementById("lastName").value;
+  let phone     = document.getElementById("phoneNumber").value;
+  let email     = document.getElementById("email").value;
+  
+  let jsonPayload = JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      userId: User.id
+  });
 
-	let jsonPayload = JSON.stringify({search:search, userId:User.id});
 
 	let url = urlBase + '/AddContact' + extension;
 	

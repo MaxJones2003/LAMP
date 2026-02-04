@@ -1,41 +1,60 @@
 <html>
   <head>
-  	<title>COP 4331 LAMP Stack Demo</title>
-  	<script type="text/javascript" src="js/contacts.js"></script>
-      <link href="css/styles.css" rel="stylesheet">	
-      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  	
-  	<script type="text/javascript">
-  	document.addEventListener('DOMContentLoaded', function() 
-  	{
-  		readCookie();
-      exitIfLoggedOut();
-  	}, false);
-  	</script>
-  	
+    <title>COP 4331 LAMP Stack Demo</title>
+    <script type="text/javascript" src="js/contacts.js"></script>
+    <link href="css/styles.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        readCookie();
+        exitIfLoggedOut();
+      }, false);
+    </script>
   </head>
   <body>
-  
-  <h1 id="title">COP 4331 LAMP Stack Demo</h1>
-  
-  <div id="loggedInDiv">
-  	<span id="userName"></span><br />
-  	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-  </div>
-  
-  <div id="accessUIDiv">
-  	<br />
-  
-  	<input type="text" id="searchText" placeholder="Contact To Search For"/>
-  	<button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
-  	<span id="contactSearchResult"></span>
-  	<p id="colorList">
-  	</p><br /><br />
-  
-  	<input type="text" id="colorText" placeholder="Contact To Add">
-  	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
-  	<span id="contactAddResult"></span>
-  </div>
-  
+
+    <h1 id="title">COP 4331 LAMP Stack Demo</h1>
+
+    <div id="loggedInDiv">
+      <span id="userName"></span><br />
+      <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>
+
+    <div id="accessUIDiv">
+      <br />
+
+      <!-- Search Contacts Section -->
+      <input type="text" id="searchText" placeholder="Contact To Search For"/>
+      <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
+      <span id="contactSearchResult"></span>
+      <p id="colorList"></p>
+      <br /><br />
+
+
+      <br /><br />
+
+      <!-- NewContact Section -->
+      <div id="NewContact">
+        <h2>Add New Contact</h2>
+
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="First Name" />
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Last Name" />
+
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" placeholder="Phone Number" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" />
+
+        <button type="button" id="addNewContactButton" class="buttons" onclick="addContact();"> Add New Contact </button>
+        <span id="contactAddResult"></span>
+      </div>
+
+    </div>
+
   </body>
 </html>
