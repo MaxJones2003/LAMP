@@ -5,7 +5,6 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
-
 function doLogin()
 {
 	userId = 0;
@@ -35,7 +34,7 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-            
+		
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
