@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f4f0e8;
+        --card: #ffffff;
+        --text: #1a1a1a;
+        --muted: #5f5f5f;
+        --accent: #0a4ccf;
+        --error: #b00020;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+        color: var(--text);
+        background: #0a0a0a;
+        overflow: hidden;
+      }
+      .background {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .bubble {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.7;
+        filter: blur(0.2px);
+        animation: floatUp var(--dur) linear infinite;
+        animation-delay: var(--delay);
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(110vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-20vh) translateX(var(--drift));
+          opacity: 0;
+        }
+      }
+      .wrap {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+      }
+      .card {
+        width: min(420px, 100%);
+        background: var(--card);
+        border: 1px solid #e6e2da;
+        border-radius: 14px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .tab {
+        display: block;
+        text-align: center;
+        padding: 8px 10px;
+        border-radius: 9px;
+        border: 1px solid #e0d8cc;
+        background: #faf7f1;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .tab.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+      h1 {
+        margin: 0 0 10px 0;
+        font-size: 22px;
+        letter-spacing: 0.3px;
+      }
+      p {
+        margin: 0 0 18px 0;
+        color: var(--muted);
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 12px 0 6px 0;
+      }
+      .login-input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d9d3c9;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+      #firstName,
+      #lastName,
+      #loginName,
+      #loginPassword {
+        font-size: 30px;
+      }
+      button {
+        margin-top: 16px;
+        width: 100%;
+        padding: 11px 14px;
+        border: none;
+        border-radius: 9px;
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+        background: var(--accent);
+        cursor: pointer;
+      }
+      #registerResult {
+        margin-top: 12px;
+        min-height: 20px;
+        color: var(--error);
+        font-weight: 600;
+      }
+      .hint {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background" aria-hidden="true">
+      <span class="bubble" style="--dur: 18s; --delay: -2s; --drift: 12vw; left: 8%; width: 26px; height: 26px; background: #ff8a8a;"></span>
+      <span class="bubble" style="--dur: 24s; --delay: -7s; --drift: -10vw; left: 18%; width: 18px; height: 18px; background: #ffd27a;"></span>
+      <span class="bubble" style="--dur: 20s; --delay: -12s; --drift: 8vw; left: 28%; width: 22px; height: 22px; background: #8fd3ff;"></span>
+      <span class="bubble" style="--dur: 26s; --delay: -4s; --drift: -14vw; left: 38%; width: 30px; height: 30px; background: #b3ffb3;"></span>
+      <span class="bubble" style="--dur: 22s; --delay: -16s; --drift: 10vw; left: 48%; width: 16px; height: 16px; background: #d9a7ff;"></span>
+      <span class="bubble" style="--dur: 28s; --delay: -9s; --drift: -12vw; left: 58%; width: 24px; height: 24px; background: #ffb3c7;"></span>
+      <span class="bubble" style="--dur: 19s; --delay: -5s; --drift: 9vw; left: 68%; width: 20px; height: 20px; background: #8fffe0;"></span>
+      <span class="bubble" style="--dur: 30s; --delay: -14s; --drift: -8vw; left: 78%; width: 28px; height: 28px; background: #ffc6a8;"></span>
+      <span class="bubble" style="--dur: 23s; --delay: -11s; --drift: 11vw; left: 88%; width: 14px; height: 14px; background: #a7c6ff;"></span>
+      <span class="bubble" style="--dur: 21s; --delay: -18s; --drift: -9vw; left: 12%; width: 12px; height: 12px; background: #ffe28a;"></span>
+      <span class="bubble" style="--dur: 27s; --delay: -6s; --drift: 13vw; left: 32%; width: 34px; height: 34px; background: #88b7ff;"></span>
+      <span class="bubble" style="--dur: 25s; --delay: -13s; --drift: -11vw; left: 52%; width: 19px; height: 19px; background: #c7ffa8;"></span>
+      <span class="bubble" style="--dur: 29s; --delay: -8s; --drift: 7vw; left: 72%; width: 16px; height: 16px; background: #ff9bd1;"></span>
+      <span class="bubble" style="--dur: 24s; --delay: -15s; --drift: -6vw; left: 92%; width: 22px; height: 22px; background: #9be7ff;"></span>
+    </div>
+    <div class="wrap">
+      <div class="card">
+        <div class="tabs">
+          <a class="tab" href="/">Login</a>
+          <span class="tab active">Register</span>
+        </div>
+        <h1>Register</h1>
+        <label for="firstName">First name</label>
+        <input id="firstName" class="login-input" type="text" autocomplete="given-name" />
+        <label for="lastName">Last name</label>
+        <input id="lastName" class="login-input" type="text" autocomplete="family-name" />
+        <label for="loginName">Username</label>
+        <input id="loginName" class="login-input" type="text" autocomplete="username" />
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" class="login-input" type="password" autocomplete="new-password" />
+        <button type="button" onclick="doRegister()">Create account</button>
+        <div id="registerResult"></div>
+      </div>
+    </div>
+  </body>
+</html>
