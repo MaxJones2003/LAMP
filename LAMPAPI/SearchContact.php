@@ -1,4 +1,6 @@
 <?php
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
 
 	$inData = getRequestInfo();
 	
@@ -12,10 +14,13 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select Name from Contacts where Name like ? and UserID=?");
-		$colorName = "%" . $inData["search"] . "%";
-		$userId = (int)$inData["userId"];
-    $stmt->bind_param("si", $colorName, $userId);
+		$stmt = $conn->prepare("select FirstName from Contacts where FirstName like ? and UserID=?");
+		$inData = getRequestInfo();
+
+    $search = $inData["search"] ?? "";
+    $userId = $inData["userId"] ?? 0;
+
+    $stmt->bind_param("si", $search, $userId);
 
 		$stmt->execute();
 		

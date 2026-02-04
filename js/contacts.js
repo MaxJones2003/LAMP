@@ -21,12 +21,7 @@ function addContact()
 	let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
 
-	let tmp = {color:newColor,userId:User.id};
- 
-  console.log("User object:", User);
-  console.log("User.Id:", User.Id);
-
-	let jsonPayload = JSON.stringify( tmp );
+	let jsonPayload = JSON.stringify({search:search, userId:User.id});
 
 	let url = urlBase + '/AddContact' + extension;
 	
@@ -58,7 +53,7 @@ function searchContact()
 	
 	let colorList = "";
 
-	let jsonPayload = JSON.stringify({search:search,userId:User.id});
+	let jsonPayload = JSON.stringify({search:search, userId:User.id});
 
 	let url = urlBase + '/SearchContact' + extension;
 	
