@@ -9,8 +9,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
-		$stmt->bind_param("s", $inData["contactId"]);
+		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND UserID = ?");
+		$stmt->bind_param("ii", $inData["id"], $inData["userId"]);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
@@ -39,6 +39,5 @@
 		$retValue = '{"error":""}';
 		sendResultInfoAsJson($retValue);
 	}
-	
 	
 ?>
