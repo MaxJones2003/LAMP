@@ -138,3 +138,66 @@ select{
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
 }
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-btn {
+  font-size: 24px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.contact-header,
+.contact-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr 40px;
+  padding: 10px;
+  border-bottom: 2px solid #4a5bdc;
+}
+
+.contact-header {
+  font-weight: bold;
+}
+
+#contactList {
+  max-height: 350px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.more-btn {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background: #b2b2b2;
+  width: 50%;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.context-menu {
+  position: absolute;
+  background: #b2b2b2;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+

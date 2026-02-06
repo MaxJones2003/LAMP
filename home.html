@@ -1,60 +1,84 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>COP 4331 LAMP Stack Demo</title>
-    <script type="text/javascript" src="js/contacts.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contacts</title>
 
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function() {
-        readCookie();
-        exitIfLoggedOut();
-      }, false);
-    </script>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
+
+    <!-- Load JS AFTER DOM -->
+    <script defer src="js/code.js"></script>
   </head>
+
   <body>
-
-    <h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-    <div id="loggedInDiv">
-      <span id="userName"></span><br />
-      <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-    </div>
+    <div id="title">My Contacts</div>
 
     <div id="accessUIDiv">
-      <br />
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <input
+          type="text"
+          id="searchText"
+          placeholder="Search"
+          onkeyup="searchContacts()"
+        />
 
-      <!-- Search Contacts Section -->
-      <input type="text" id="searchText" placeholder="Contact To Search For"/>
-      <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
-      <span id="contactSearchResult"></span>
-      <p id="colorList"></p>
-      <br /><br />
-
-
-      <br /><br />
-
-      <!-- NewContact Section -->
-      <div id="NewContact">
-        <h2>Add New Contact</h2>
-
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="First Name" />
-
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" placeholder="Last Name" />
-
-        <label for="phoneNumber">Phone Number</label>
-        <input type="text" id="phoneNumber" placeholder="Phone Number" />
-
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Email" />
-
-        <button type="button" id="addNewContactButton" class="buttons" onclick="addContact();"> Add New Contact </button>
-        <span id="contactAddResult"></span>
+        <button class="icon-btn" onclick="openAddContact()">+</button>
+        <button class="icon-btn" onclick="openUserMenu()">?</button>
       </div>
 
+      <!-- Table Header -->
+      <div class="contact-header">
+        <div>Name</div>
+        <div>Email</div>
+        <div>Phone</div>
+        <div></div>
+      </div>
+
+      <!-- Scrollable Contact List -->
+      <div id="contactList">
+        <!-- Example contact row -->
+        <!-- JS will generate these -->
+        <!--
+        <div class="contact-row">
+          <div>John Doe</div>
+          <div>example@email.com</div>
+          <div>123-456-7890</div>
+          <button class="more-btn" onclick="openContactMenu(1)">?</button>
+        </div>
+        -->
+      </div>
     </div>
 
+    <!-- Add Contact Modal -->
+    <div id="addContactModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Add Contact</h2>
+
+        <input id="addFirstName" type="text" placeholder="First Name" />
+        <input id="addLastName" type="text" placeholder="Last Name" />
+        <input id="addEmail" type="text" placeholder="Email" />
+        <input id="addPhone" type="text" placeholder="Phone" />
+
+        <button class="buttons" onclick="addContact()">Save</button>
+        <button class="buttons" onclick="closeAddContact()">Cancel</button>
+
+        <div id="colorAddResult"></div>
+      </div>
+    </div>
+
+    <!-- Contact Context Menu -->
+    <div id="contactMenu" class="context-menu hidden">
+      <button onclick="editContact()">Edit</button>
+      <button onclick="deleteContact()">Delete</button>
+    </div>
+
+    <!-- User Menu -->
+    <div id="userMenu" class="context-menu hidden">
+      <button onclick="doLogout()">Logout</button>
+    </div>
   </body>
 </html>
+
