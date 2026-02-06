@@ -11,16 +11,17 @@
 	{
 		$stmt = $conn->prepare(
 			"UPDATE Contacts
-			 SET FirstName = ?, LastName = ?, Email = ?, PhoneNumber = ?
-			 WHERE ID=?"
+			 SET FirstName = ?, LastName = ?, Email = ?, Phone = ?
+			 WHERE ID = ? AND UserID = ?"
 		);
 		$stmt->bind_param(
-			"ssssi",
+			"ssssii",
 			$inData["firstName"],
 			$inData["lastName"],
 			$inData["email"],
-			$inData["phoneNumber"],
-			$inData["contactId"]
+			$inData["phone"],
+			$inData["id"],
+			$inData["userId"]
 		);
 		$stmt->execute();	
 		$stmt->close();
