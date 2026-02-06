@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login</title>
-    <script type="text/javascript" src="js/md5.js"></script>
-    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/md5.js" defer></script>
+    <script type="text/javascript" src="js/code.js" defer></script>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
     <style>
@@ -156,36 +156,30 @@
       <span class="bubble" style="--dur: 29s; --delay: -8s; --drift: 7vw; left: 72%; width: 16px; height: 16px; background: #ff9bd1;"></span>
       <span class="bubble" style="--dur: 24s; --delay: -15s; --drift: -6vw; left: 92%; width: 22px; height: 22px; background: #9be7ff;"></span>
     </div>
-<div class="wrap">
-  <div class="card">
-    <div class="tabs">
-      <span class="tab active">Login</span>
-      <a class="tab" href="register.html">Register</a>
+    <div class="wrap">
+      <div class="card">
+        <div class="tabs">
+          <span class="tab active">Login</span>
+          <a class="tab" href="register.html">Register</a>
+        </div>
+        <h1>Login</h1>
+        <form id="loginForm">
+          <label for="loginName">Username</label>
+          <input
+            id="loginName"
+            type="text"
+            autocomplete="username"
+          />
+          <label for="loginPassword">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+          />
+          <button type="submit">Sign in</button>
+        </form>
+        <div id="loginResult"></div>
+      </div>
     </div>
-
-    <h1>Login</h1>
-
-    <form id="loginForm">
-      <label for="loginName">Username</label>
-      <input
-        id="loginName"
-        type="text"
-        autocomplete="username"
-      />
-
-      <label for="loginPassword">Password</label>
-      <input
-        id="loginPassword"
-        type="password"
-        autocomplete="current-password"
-      />
-
-      <button type="submit">Sign in</button>
-    </form>
-
-    <div id="loginResult"></div>
-  </div>
-</div>
-
   </body>
 </html>

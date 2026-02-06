@@ -246,18 +246,18 @@ function searchColor()
 
 function doRegister()
 {
-  let regFirstName = document.getElementById("firstName").value;
-  let regLastName = document.getElementById("lastName").value;
-  let regLogin = document.getElementById("loginName").value;
-  let regPassword = document.getElementById("loginPassword").value;
+  let regFirstName = document.getElementById("firstName").value.trim();
+  let regLastName = document.getElementById("lastName").value.trim();
+  let regLogin = document.getElementById("loginName").value.trim();
+  let regPassword = document.getElementById("loginPassword").value.trim();
   
   document.getElementById("registerResult").innerHTML = "";
   
   let jsonPayload = JSON.stringify({
-          firstName: regFirstName,
-          lastName: regLastName,
-          login: regLogin,
-          password: regPassword
+    firstName: regFirstName,
+    lastName: regLastName,
+    login: regLogin,
+    password: regPassword
   });
   
   let url = urlBase + '/Register' + extension;
@@ -266,19 +266,44 @@ function doRegister()
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   
-  xhr.onreadystatechange = function()
+  xhr.onreadystatechange = function ()
   {
-    if (xhr.readyState === 4 && xhr.status === 200)
+    if (xhr.readyState !== 4) return;
+    
+    if (xhr.status !== 200)
     {
-        loginAfterRegister(regLogin, regPassword);
+      document.getElementById("registerResult").innerHTML =
+      "Server error. Please try again.";
+      return;
     }
+  
+    let response = JSON.parse(xhr.responseText);
+    
+    // register failed
+    if (response.id === 0 || response.error)
+    {
+      document.getElementById("registerResult").innerHTML =
+      response.error || "Registration failed";
+      return;
+    }
+    
+    // register success
+    document.getElementById("registerResult").innerHTML = "Account created successfully! Logging you in...";
+    loginAfterRegister(regLogin, regPassword);
   };
   
   xhr.send(jsonPayload);
 }
 
 
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  doLogin();
-});
+
+const loginForm = document.getElementById("loginForm");
+if (loginForm)
+{
+  loginForm.addEventListener("submit", function (e) {
+    console.log("login form");
+    e.preventDefault();
+    doLogin();
+  });
+}
+
