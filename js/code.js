@@ -13,6 +13,16 @@ function doLogin()
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
+ 
+  if (login.trim().length === 0 || password.trim().length === 0)
+  {
+      document.getElementById("loginResult").innerHTML =
+          "Username and Password must have some input";
+      return;
+  }
+
+  
+  
 //	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
@@ -32,7 +42,15 @@ function doLogin()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let jsonObject = JSON.parse( xhr.responseText );
+				let jsonObject;
+        try {
+            jsonObject = JSON.parse(xhr.responseText);
+        } catch {
+            document.getElementById("loginResult").innerHTML =
+                "Server error. Please try again.";
+            return;
+        }
+
 				userId = jsonObject.id;
 		
 				if( userId < 1 )
@@ -54,9 +72,51 @@ function doLogin()
 	catch(err)
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
-	}
+	} 
 
 }
+
+
+function loginAfterRegister(login, password)
+{
+    document.getElementById("registerResult").innerHTML = "";
+
+    let jsonPayload = JSON.stringify({
+        login: login,
+        password: password
+    });
+
+    let url = urlBase + '/Login' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState === 4 && xhr.status === 200)
+        {
+            let jsonObject = JSON.parse(xhr.responseText);
+            userId = parseInt(jsonObject.id, 10);
+
+            if (isNaN(userId) || userId <= 0)
+            {
+                document.getElementById("registerResult").innerHTML =
+                    "Auto-login failed. Please log in manually.";
+                return;
+            }
+
+            firstName = jsonObject.firstName;
+            lastName = jsonObject.lastName;
+
+            saveCookie();
+            window.location.href = "home.html";
+        }
+    };
+
+    xhr.send(jsonPayload);
+}
+
 
 function saveCookie()
 {
@@ -186,46 +246,39 @@ function searchColor()
 
 function doRegister()
 {
-	userId = 0;
-	firstName = "";
-	lastName = "";
-
-	// 1. Get values using the IDs from your register.html file
-	let regFirstName = document.getElementById("firstName").value;
-	let regLastName = document.getElementById("lastName").value;
-	let regLogin = document.getElementById("loginName").value;
-	let regPassword = document.getElementById("loginPassword").value;
-
-	document.getElementById("registerResult").innerHTML = "";
-
-	// 2. Create the payload
-	let tmp = {
-		firstName: regFirstName,
-		lastName: regLastName,
-		login: regLogin,      
-		password: regPassword
-	};
-	
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/Register' + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("registerResult").innerHTML = "Account created successfully! Please log in.";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("registerResult").innerHTML = err.message;
-	}
+  let regFirstName = document.getElementById("firstName").value;
+  let regLastName = document.getElementById("lastName").value;
+  let regLogin = document.getElementById("loginName").value;
+  let regPassword = document.getElementById("loginPassword").value;
+  
+  document.getElementById("registerResult").innerHTML = "";
+  
+  let jsonPayload = JSON.stringify({
+          firstName: regFirstName,
+          lastName: regLastName,
+          login: regLogin,
+          password: regPassword
+  });
+  
+  let url = urlBase + '/Register' + extension;
+  
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  
+  xhr.onreadystatechange = function()
+  {
+    if (xhr.readyState === 4 && xhr.status === 200)
+    {
+        loginAfterRegister(regLogin, regPassword);
+    }
+  };
+  
+  xhr.send(jsonPayload);
 }
+
+
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  doLogin();
+});
