@@ -1,203 +1,350 @@
-body 
-{
-    background-color: #707070;
+/* Shared design tokens (match index.html / register.html) */
+:root {
+  --bg: #f4f0e8;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #5f5f5f;
+  --accent: #0a4ccf;
+  --error: #b00020;
 }
 
-#title 
-{
-    font-size: 40px;
-    width: 100%;
-    margin: 2% 5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+* {
+  box-sizing: border-box;
 }
 
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  color: var(--text);
+  background: #0a0a0a;
+  overflow-x: hidden;
 }
 
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+/* Bubble background (home / contacts page) */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  filter: blur(0.2px);
+  animation: floatUp var(--dur) linear infinite;
+  animation-delay: var(--delay);
 }
 
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-20vh) translateX(var(--drift));
+    opacity: 0;
+  }
 }
 
-.buttons:hover{
-    background-color: #00d5124f;
-    color: #FFFFFF;
-    opacity: 50%;
+.wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  position: relative;
+  z-index: 1;
 }
 
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
+.card {
+  width: min(720px, 100%);
+  background: var(--card);
+  border: 1px solid #e6e2da;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-input[type="text"],input[type="password"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+.wrap--contacts {
+  align-items: stretch;
+  padding: 20px;
 }
 
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+.card--contacts {
+  width: min(1100px, 96%);
+  max-width: none;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
 }
 
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+.card--contacts #accessUIDiv {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
+/* Contacts page title */
+#title {
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--text);
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+#accessUIDiv {
+  font-size: 15px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
 }
 
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
+/* Buttons – match index/register */
+.buttons {
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 9px;
+  padding: 11px 14px;
+  border: none;
+  color: white;
+  background: var(--accent);
+  cursor: pointer;
+  margin-top: 12px;
+  margin-right: 8px;
 }
 
-#colorSearchResult{
-    display: none;
+.buttons:hover {
+  opacity: 0.9;
 }
 
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+.buttons:last-of-type {
+  background: #faf7f1;
+  color: var(--text);
+  border: 1px solid #e0d8cc;
 }
 
+/* Inputs – match index/register */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d9d3c9;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0 6px 0;
+}
+
+/* Top bar */
 .top-bar {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 16px;
+}
+
+.top-bar input {
+  flex: 1;
+  margin-bottom: 0;
 }
 
 .icon-btn {
-  font-size: 24px;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 9px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
   cursor: pointer;
+  border: 1px solid #e0d8cc;
+  background: #faf7f1;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.icon-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Contact list */
 .contact-header,
 .contact-row {
   display: grid;
   grid-template-columns: 2fr 3fr 2fr 40px;
-  padding: 10px;
-  border-bottom: 2px solid #4a5bdc;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e6e2da;
+  align-items: center;
 }
 
 .contact-header {
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.contact-row:hover {
+  background: #faf7f1;
 }
 
 #contactList {
   max-height: 350px;
   overflow-y: auto;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
-.more-btn {
-  border-radius: 50%;
+.wrap--contacts #contactList {
+  max-height: min(70vh, 600px);
+  flex: 1 1 auto;
+}
+
+.more-btn,
+.contact-menu-btn {
+  border-radius: 9px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
+  border: 1px solid #e0d8cc;
+  background: #faf7f1;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 14px;
 }
 
+.more-btn:hover,
+.contact-menu-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Modal – card style */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
 .modal-content {
-  background: #b2b2b2;
-  width: 50%;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 15px;
+  background: var(--card);
+  width: min(420px, 100%);
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid #e6e2da;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
+.modal-content h2 {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+}
+
+/* Context menus */
 .context-menu {
   position: absolute;
-  background: #b2b2b2;
-  padding: 10px;
-  border-radius: 10px;
+  background: var(--card);
+  padding: 8px;
+  border-radius: 9px;
+  border: 1px solid #e6e2da;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.context-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  margin: 2px 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.context-menu button:hover {
+  background: #faf7f1;
 }
 
 .hidden {
+  display: none !important;
+}
+
+/* Result messages */
+#colorAddResult,
+#contactAddResult,
+#contactEditResult,
+#loginResult,
+#registerResult {
+  margin-top: 12px;
+  min-height: 20px;
+  color: var(--error);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#colorSearchResult {
   display: none;
 }
+
+#inner-title,
+#userName {
+  display: inline-block;
+  width: 90%;
+  text-align: center;
+  margin-left: 5%;
+  margin-bottom: 2%;
+  color: var(--muted);
+}
+
+#logoutButton {
+  width: 20%;
+  margin-left: 40%;
+}
+
+select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #d9d3c9;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* Legacy login/register divs when used outside index/register */
+#loginDiv,
+#loggedInDiv {
+  font-size: 15px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
 

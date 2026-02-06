@@ -4,51 +4,51 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contacts</title>
-
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
-
-    <!-- Load JS AFTER DOM -->
-    <script defer src="js/code.js"></script>
+    <script type="text/javascript" src="js/contacts.js" defer></script>
   </head>
-
   <body>
-    <div id="title">My Contacts</div>
-
-    <div id="accessUIDiv">
-      <!-- Top Bar -->
-      <div class="top-bar">
-        <input
-          type="text"
-          id="searchText"
-          placeholder="Search"
-          onkeyup="searchContacts()"
-        />
-
-        <button class="icon-btn" onclick="openAddContact()">+</button>
-        <button class="icon-btn" onclick="openUserMenu()">?</button>
-      </div>
-
-      <!-- Table Header -->
-      <div class="contact-header">
-        <div>Name</div>
-        <div>Email</div>
-        <div>Phone</div>
-        <div></div>
-      </div>
-
-      <!-- Scrollable Contact List -->
-      <div id="contactList">
-        <!-- Example contact row -->
-        <!-- JS will generate these -->
-        <!--
-        <div class="contact-row">
-          <div>John Doe</div>
-          <div>example@email.com</div>
-          <div>123-456-7890</div>
-          <button class="more-btn" onclick="openContactMenu(1)">?</button>
+    <div class="background" aria-hidden="true">
+      <span class="bubble" style="--dur: 18s; --delay: -2s; --drift: 12vw; left: 8%; width: 26px; height: 26px; background: #ff8a8a;"></span>
+      <span class="bubble" style="--dur: 24s; --delay: -7s; --drift: -10vw; left: 18%; width: 18px; height: 18px; background: #ffd27a;"></span>
+      <span class="bubble" style="--dur: 20s; --delay: -12s; --drift: 8vw; left: 28%; width: 22px; height: 22px; background: #8fd3ff;"></span>
+      <span class="bubble" style="--dur: 26s; --delay: -4s; --drift: -14vw; left: 38%; width: 30px; height: 30px; background: #b3ffb3;"></span>
+      <span class="bubble" style="--dur: 22s; --delay: -16s; --drift: 10vw; left: 48%; width: 16px; height: 16px; background: #d9a7ff;"></span>
+      <span class="bubble" style="--dur: 28s; --delay: -9s; --drift: -12vw; left: 58%; width: 24px; height: 24px; background: #ffb3c7;"></span>
+      <span class="bubble" style="--dur: 19s; --delay: -5s; --drift: 9vw; left: 68%; width: 20px; height: 20px; background: #8fffe0;"></span>
+      <span class="bubble" style="--dur: 30s; --delay: -14s; --drift: -8vw; left: 78%; width: 28px; height: 28px; background: #ffc6a8;"></span>
+      <span class="bubble" style="--dur: 23s; --delay: -11s; --drift: 11vw; left: 88%; width: 14px; height: 14px; background: #a7c6ff;"></span>
+      <span class="bubble" style="--dur: 21s; --delay: -18s; --drift: -9vw; left: 12%; width: 12px; height: 12px; background: #ffe28a;"></span>
+      <span class="bubble" style="--dur: 27s; --delay: -6s; --drift: 13vw; left: 32%; width: 34px; height: 34px; background: #88b7ff;"></span>
+      <span class="bubble" style="--dur: 25s; --delay: -13s; --drift: -11vw; left: 52%; width: 19px; height: 19px; background: #c7ffa8;"></span>
+      <span class="bubble" style="--dur: 29s; --delay: -8s; --drift: 7vw; left: 72%; width: 16px; height: 16px; background: #ff9bd1;"></span>
+      <span class="bubble" style="--dur: 24s; --delay: -15s; --drift: -6vw; left: 92%; width: 22px; height: 22px; background: #9be7ff;"></span>
+    </div>
+    <div class="wrap wrap--contacts">
+      <div class="card card--contacts">
+        <div id="title">My Contacts</div>
+        <div id="accessUIDiv">
+          <div class="top-bar">
+            <input
+              type="text"
+              id="searchText"
+              placeholder="Search"
+              onkeyup="searchContacts()"
+            />
+            <button class="icon-btn" onclick="openAddContact()">+</button>
+            <button class="icon-btn" onclick="openUserMenu()">...</button>
+          </div>
+          <div class="contact-header">
+            <div>Name</div>
+            <div>Email</div>
+            <div>Phone</div>
+            <div></div>
+          </div>
+          <div id="contactList">
+            <!-- JS generates contact rows -->
+          </div>
         </div>
-        -->
       </div>
     </div>
 
@@ -56,22 +56,33 @@
     <div id="addContactModal" class="modal hidden">
       <div class="modal-content">
         <h2>Add Contact</h2>
-
         <input id="addFirstName" type="text" placeholder="First Name" />
         <input id="addLastName" type="text" placeholder="Last Name" />
-        <input id="addEmail" type="text" placeholder="Email" />
-        <input id="addPhone" type="text" placeholder="Phone" />
-
+        <input id="addEmail" type="email" placeholder="Email" />
+        <input id="addPhone" type="tel" placeholder="Phone" />
         <button class="buttons" onclick="addContact()">Save</button>
         <button class="buttons" onclick="closeAddContact()">Cancel</button>
+        <div id="contactAddResult"></div>
+      </div>
+    </div>
 
-        <div id="colorAddResult"></div>
+    <!-- Edit Contact Modal -->
+    <div id="editContactModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Edit Contact</h2>
+        <input id="editFirstName" type="text" placeholder="First Name" />
+        <input id="editLastName" type="text" placeholder="Last Name" />
+        <input id="editEmail" type="email" placeholder="Email" />
+        <input id="editPhone" type="tel" placeholder="Phone" />
+        <button class="buttons" onclick="editContact()">Save</button>
+        <button class="buttons" onclick="closeEditContact()">Cancel</button>
+        <div id="contactEditResult"></div>
       </div>
     </div>
 
     <!-- Contact Context Menu -->
     <div id="contactMenu" class="context-menu hidden">
-      <button onclick="editContact()">Edit</button>
+      <button onclick="openEditContact()">Edit</button>
       <button onclick="deleteContact()">Delete</button>
     </div>
 
@@ -81,4 +92,3 @@
     </div>
   </body>
 </html>
-

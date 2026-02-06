@@ -14,10 +14,9 @@ function doLogin()
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
  
-  if (login.trim().length === 0 || password.trim().length === 0)
+  if (!login || !password)
   {
-      document.getElementById("loginResult").innerHTML =
-          "Username and Password must have some input";
+      document.getElementById("loginResult").innerHTML = document.getElementById("loginResult").innerHTML = "Be sure to fill out all fields";
       return;
   }
 
@@ -250,6 +249,12 @@ function doRegister()
   let regLastName = document.getElementById("lastName").value.trim();
   let regLogin = document.getElementById("loginName").value.trim();
   let regPassword = document.getElementById("loginPassword").value.trim();
+
+  if (!regFirstName || !regLastName || !regLogin || !regPassword)
+  {
+	document.getElementById("registerResult").innerHTML = "Be sure to fill out all fields";
+	return;
+  }
   
   document.getElementById("registerResult").innerHTML = "";
   
