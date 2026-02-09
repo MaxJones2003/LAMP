@@ -82,7 +82,44 @@ function contactExists(firstName, lastName)
 
 function searchContacts()
 {
-  loadContacts();
+  let search = document.getElementById("searchText").value.trim();
+  if (search === "") {
+    loadContacts();
+    return;
+  }
+  let jsonPayload = JSON.stringify({ search: search, userId: User.id });
+  let url = urlBase + "/SearchContact" + extension;
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState !== 4) return;
+    let list = document.getElementById("contactList");
+    list.innerHTML = "";
+    if (xhr.status !== 200) {
+      list.innerHTML = "<p>Search failed.</p>";
+      return;
+    }
+    let response = JSON.parse(xhr.responseText);
+    if (response.error) {
+      list.innerHTML = "<p>" + response.error + "</p>";
+      return;
+    }
+    if (!response.results || response.results.length === 0) {
+      list.innerHTML = "<p>No contacts found</p>";
+      return;
+    }
+    for (let c of response.results) {
+      addContactToList({
+        id: c.ID,
+        firstName: c.FirstName,
+        lastName: c.LastName,
+        email: c.Email,
+        phone: c.Phone
+      });
+    }
+  };
+  xhr.send(jsonPayload);
 }
 
 function searchContact()
