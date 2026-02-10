@@ -25,7 +25,6 @@
         font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
         color: var(--text);
         background: #0a0a0a;
-        overflow: hidden;
       }
       .background {
         position: fixed;
@@ -56,11 +55,10 @@
       }
       .wrap {
         min-height: 100vh;
-        display: grid;
-        place-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
         padding: 24px;
-        position: relative;
-        z-index: 1;
       }
       .card {
         width: min(420px, 100%);
@@ -118,7 +116,7 @@
       #lastName,
       #loginName,
       #loginPassword {
-        font-size: 30px;
+        font-size: 15px;
       }
       button {
         margin-top: 16px;
